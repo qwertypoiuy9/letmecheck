@@ -65,15 +65,16 @@ export default function ResumeAnalyzer() {
 
   const simulateAnalysis = async (): Promise<AnalysisResult> => {
     await new Promise(r => setTimeout(r, 2500))
+    // Stricter scoring algorithm for perfection
     const scores = {
-      structure: Math.floor(70 + Math.random() * 25),
-      content: Math.floor(65 + Math.random() * 30),
-      keywords: Math.floor(60 + Math.random() * 35),
-      grammar: Math.floor(75 + Math.random() * 20),
-      technicalSkills: Math.floor(55 + Math.random() * 40),
-      experience: Math.floor(60 + Math.random() * 35),
-      education: Math.floor(80 + Math.random() * 15),
-      ats: Math.floor(70 + Math.random() * 25),
+      structure: Math.floor(45 + Math.random() * 20),
+      content: Math.floor(40 + Math.random() * 25),
+      keywords: Math.floor(35 + Math.random() * 25),
+      grammar: Math.floor(65 + Math.random() * 20),
+      technicalSkills: Math.floor(30 + Math.random() * 30),
+      experience: Math.floor(35 + Math.random() * 25),
+      education: Math.floor(75 + Math.random() * 15),
+      ats: Math.floor(40 + Math.random() * 25),
     }
     const overall = Math.round(
       (scores.structure * 0.15 + scores.content * 0.15 + scores.keywords * 0.15 +
@@ -83,15 +84,15 @@ export default function ResumeAnalyzer() {
     return {
       overallScore: overall, dimensions: scores,
       suggestions: [
-        'Add more quantifiable achievements to your project descriptions (%, numbers)',
-        'Include missing keywords: "REST API", "Microservices", "CI/CD" for your target role',
-        'Expand your technical skills section with cloud platforms (AWS/Azure)',
-        'Your professional summary could be more specific about your career goals',
-        'Consider adding a link to your GitHub portfolio with active repositories',
-        'Use action verbs at the start of each bullet point: "Engineered", "Architected", "Optimized"',
+        'CRITICAL: Your project achievements lack sufficient quantifiable metrics (e.g., "improved performance by X%").',
+        'Your resume structure is not fully ATS-compliant. Avoid complex formatting and tables.',
+        'Significant gap in required keywords for your target role. Your technical density is low.',
+        'The professional summary is too generic. It must align strictly with the target job requirements.',
+        'Experience bullet points do not effectively utilize the STAR (Situation, Task, Action, Result) method.',
+        'Action verbs are repetitive. Diversify your vocabulary with strong industry-specific action words.',
       ],
-      extractedSkills: ['React.js','Node.js','JavaScript','Python','Git','SQL','HTML5','CSS3'],
-      missingKeywords: ['Docker','Kubernetes','AWS','TypeScript','GraphQL','Jest','Redis','MongoDB'],
+      extractedSkills: ['React.js','JavaScript','Git','HTML5','CSS3'],
+      missingKeywords: ['Docker','Kubernetes','AWS','CI/CD','TypeScript','GraphQL','Microservices','System Design'],
     }
   }
 

@@ -74,11 +74,12 @@ export default function Interview() {
           )}
         </div>
         <div className="border-t border-secondary pt-4 mt-4">
-          <div className="flex gap-2">
-            <input value={input} onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-              placeholder="Type your answer..." className="input-field flex-1" />
-            <button onClick={handleSend} disabled={loading || !input.trim()} className="btn-primary px-4">
+          <div className="flex gap-2 items-end">
+            <textarea value={input} onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
+              placeholder="Type your answer here... (Press Enter to send, Shift+Enter for new line)" 
+              className="input-field flex-1 resize-y min-h-[80px] max-h-[200px]" />
+            <button onClick={handleSend} disabled={loading || !input.trim()} className="btn-primary px-4 mb-1 h-[80px]">
               <Send size={18} />
             </button>
           </div>
