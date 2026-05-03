@@ -52,6 +52,24 @@ export interface Database {
           status: string
           uploaded_at: string
         }
+        Insert: {
+          id?: string
+          user_id: string
+          file_url: string
+          file_name: string
+          target_role: string
+          analysis_score?: number | null
+          analysis_results?: Json
+          extracted_text?: string | null
+          status?: string
+          uploaded_at?: string
+        }
+        Update: {
+          analysis_score?: number | null
+          analysis_results?: Json
+          extracted_text?: string | null
+          status?: string
+        }
       }
       skill_gaps: {
         Row: {
@@ -63,6 +81,21 @@ export interface Database {
           present_skills: Json
           skill_coverage_percent: number
           analyzed_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          resume_id?: string | null
+          target_role: string
+          missing_skills?: Json
+          present_skills?: Json
+          skill_coverage_percent?: number
+          analyzed_at?: string
+        }
+        Update: {
+          missing_skills?: Json
+          present_skills?: Json
+          skill_coverage_percent?: number
         }
       }
       courses: {
@@ -77,6 +110,26 @@ export interface Database {
           category: string | null
           created_at: string
         }
+        Insert: {
+          id?: string
+          title: string
+          provider: string
+          skills_covered?: Json
+          duration?: string | null
+          difficulty?: string | null
+          url: string
+          category?: string | null
+          created_at?: string
+        }
+        Update: {
+          title?: string
+          provider?: string
+          skills_covered?: Json
+          duration?: string | null
+          difficulty?: string | null
+          url?: string
+          category?: string | null
+        }
       }
       user_courses: {
         Row: {
@@ -86,6 +139,19 @@ export interface Database {
           status: string
           accessed_at: string | null
           completed_at: string | null
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          course_id: string
+          status?: string
+          accessed_at?: string | null
+          completed_at?: string | null
+        }
+        Update: {
+          status?: string
+          accessed_at?: string | null
+          completed_at?: string | null
         }
       }
       certificates: {
@@ -100,6 +166,22 @@ export interface Database {
           badge_id: string | null
           uploaded_at: string
         }
+        Insert: {
+          id?: string
+          user_id: string
+          user_course_id?: string | null
+          file_url: string
+          extracted_text?: string | null
+          verification_status?: string
+          rejection_reason?: string | null
+          badge_id?: string | null
+          uploaded_at?: string
+        }
+        Update: {
+          verification_status?: string
+          rejection_reason?: string | null
+          badge_id?: string | null
+        }
       }
       badges: {
         Row: {
@@ -110,6 +192,20 @@ export interface Database {
           course_name: string
           verification_id: string
           issued_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          certificate_id?: string | null
+          badge_name: string
+          course_name: string
+          verification_id: string
+          issued_at?: string
+        }
+        Update: {
+          badge_name?: string
+          course_name?: string
+          verification_id?: string
         }
       }
     }

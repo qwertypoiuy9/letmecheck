@@ -49,7 +49,7 @@ export default function Courses() {
     const { data, error } = await supabase.from('user_courses').insert({
       user_id: user.id, course_id: course.id, status: 'accessed',
       accessed_at: new Date().toISOString(),
-    }).select().single()
+    } as any).select().single()
     if (!error && data) {
       setUserCourses(prev => ({ ...prev, [course.id]: data }))
       setAccessedMsg('You have accessed "' + course.title + '". Complete the course and return to upload your certificate for a verified badge!')

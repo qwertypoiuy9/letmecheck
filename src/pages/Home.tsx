@@ -12,7 +12,7 @@ const features = [
 ]
 
 export default function Home() {
-  const { profile } = useAuth()
+  useAuth()
   const navigate = useNavigate()
   const [currentFeature, setCurrentFeature] = useState(0)
 

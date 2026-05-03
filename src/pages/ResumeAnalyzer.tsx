@@ -107,19 +107,20 @@ export default function ResumeAnalyzer() {
       const { data: resume, error: dbErr } = await supabase.from('resumes').insert({
         user_id: user.id, file_url: publicUrl, file_name: file.name,
         target_role: targetRole, status: 'analyzing',
-      }).select().single()
+      } as any).select().single()
       if (dbErr) throw dbErr
       const analysis = await simulateAnalysis()
       setResult(analysis)
-      await supabase.from('resumes').update({
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await (supabase.from('resumes') as any).update({
         analysis_score: analysis.overallScore, analysis_results: analysis, status: 'completed',
-      }).eq('id', resume.id)
+      }).eq('id', (resume as any).id)
       await supabase.from('skill_gaps').insert({
-        user_id: user.id, resume_id: resume.id, target_role: targetRole,
+        user_id: user.id, resume_id: (resume as any).id, target_role: targetRole,
         missing_skills: analysis.missingKeywords.map(k => ({ name: k, category: 'Technical', priority: 'High' })),
         present_skills: analysis.extractedSkills.map(k => ({ name: k, category: 'Technical' })),
         skill_coverage_percent: Math.round((analysis.extractedSkills.length / (analysis.extractedSkills.length + analysis.missingKeywords.length)) * 100),
-      })
+      } as any)
     } catch (err: any) {
       setUploadError(err.message || 'Analysis failed. Please try again.')
     } finally {
